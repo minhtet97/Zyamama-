@@ -52,9 +52,15 @@ public class Jamma : MonoBehaviour
     public bool Skill_3 = false;//時間を加速するスキル
     float Timer;
 
+    //ジャママーのClone
+   // public GameObject CloneJamma;
+    //public GameObject CloneJamma2;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        //Instantiate(CloneJamma, new Vector3(-3f, 0f, -8.5f), Quaternion.identity);
+        //Instantiate(CloneJamma2, new Vector3(3f, 0f, -8.5f), Quaternion.identity);
     }
 
     void Update()
@@ -133,13 +139,13 @@ public class Jamma : MonoBehaviour
     //ジャママーの移動が速くなるスキル
     private void Skill_Move_1()
     {
-        gameObject.GetComponent<Ball>().BallBoosted = true;
+        ball.gameObject.GetComponent<Ball>().BallBoosted = true;
     }
 
     //ボールが2つになるスキル
     private void Skill_Move_2()
     {
-        gameObject.GetComponent<Ball>().Multiple = true;
+        ball.gameObject.GetComponent<Ball>().Multiple = true;
     }
 
     //制限時間が短くなる

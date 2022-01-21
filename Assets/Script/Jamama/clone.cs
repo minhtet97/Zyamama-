@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class clone : MonoBehaviour
 {
-    private bool istouching;
-    // Start is called before the first frame update
-    void Start()
+    private float speed = 10f;
+    private Vector3 moveDirection = Vector3.zero;
+    private void Start()
     {
-        istouching = false;
+        
+    }
+    private void Update()
+    {
+        moveDirection = new Vector3(Input.GetAxis("Horizontal_Ja"), 0.0f, 0.0f);
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = moveDirection * speed;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        switch (gameObject.tag)
-        {
-            case "Multipleball":
-                if (istouching == true)
-                {
-                    Instantiate(this.gameObject, transform.position, Quaternion.identity);
-                }
-                break;
-        }
-    }
-    
 }

@@ -50,7 +50,7 @@ public class Ball : MonoBehaviour
     public bool BallBoosted = false;
     //付け加えたもの～ここまで～
     [SerializeField]
-    public bool Multiple = true;
+    public bool Multiple = false;
 
 
     // Start is called before the first frame update
