@@ -38,14 +38,19 @@ public class Ball : MonoBehaviour
     [HideInInspector] public Vector3 afterReflectVero = Vector3.zero;
 
     //付け加えたもの～ここから～
-    public bool isBoostedActived = false; // boostspeed bool
+    //ボールのスビートスキル
+    [SerializeField]
+    public float BallBoostTimer; 
 
     [SerializeField]
-    private float BoostTime = 10.0f; // boosting time
+    public float BallBoostIncrease;
 
-    [SerializeField]
-    private float BoostIncrease = 10.0f; // boosting Speed
+    public bool isBallBoosting;
+
+    public bool BallBoosted = false;
     //付け加えたもの～ここまで～
+    [SerializeField]
+    public bool Multiple = true;
 
 
     // Start is called before the first frame update
@@ -58,6 +63,10 @@ public class Ball : MonoBehaviour
         afterReflectVero = rb.velocity;
         rb.velocity = pos;
         afterReflectVero = rb.velocity;
+        //ボールのスビートスキル
+        BallBoostTimer = 0;
+        isBallBoosting = false;
+        
     }
      void Update()
     {
@@ -76,7 +85,18 @@ public class Ball : MonoBehaviour
             Zyamama.GetComponent<Jamma>().Shot = false;
             Destroy(this.gameObject);
         }
-
+        //ボールのスビートスキル
+        if(isBallBoosting)
+        {
+            BallBoostTimer += Time.deltaTime;
+            if(BallBoostTimer >= 10)
+            {
+                BallBoostTimer = 0;
+                isBallBoosting = false;
+            }
+        }
+        BallSpeedUp();
+        BallMultiple();
     }
 
     private void OnCollisionEnter(Collision hit)
@@ -97,9 +117,11 @@ public class Ball : MonoBehaviour
                     switch(Skill_Name)
                     {
                         case "SpeedBoost"://青
+                            Zyamama.GetComponent<Jamma>().Skill_1 = true;
                             break;
 
                         case "MultipleBall"://黄
+                            Zyamama.GetComponent<Jamma>().Skill_2 = true;
                             break;
 
                         case "TimeFast"://赤
@@ -159,6 +181,24 @@ public class Ball : MonoBehaviour
         {
             //消滅までのカウントダウン
             DestroyTime -= Time.deltaTime;
+        }
+    }
+
+    private void BallSpeedUp()
+    {
+        if(BallBoosted == true)
+        {
+            movespeed = movespeed + BallBoostIncrease;
+            isBallBoosting = true;
+        }
+    }
+
+    private void BallMultiple()
+    {
+        if(Multiple == true)
+        {
+            Instantiate(this.gameObject, transform.position, Quaternion.identity);
+            Destroy(this.gameObject, 10);
         }
     }
 }

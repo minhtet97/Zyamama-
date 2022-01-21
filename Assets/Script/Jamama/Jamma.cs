@@ -43,6 +43,12 @@ public class Jamma : MonoBehaviour
 
     public bool Shot = false;//玉を射出しているかの判定
 
+    public bool Skill_1 = false; //ボールのスピードアップスキル
+   // bool BallSpeed;
+
+    public bool Skill_2 = false; //ボールが増える;
+   // bool BallMultiple;
+
     public bool Skill_3 = false;//時間を加速するスキル
     float Timer;
 
@@ -94,10 +100,21 @@ public class Jamma : MonoBehaviour
             Destroy(Life[0]);
         }
 
+        if (Skill_1 == true)
+        {
+            Skill_Move_1();
+        }
+        
+        if(Skill_2 == true)
+        {
+            Skill_Move_2();
+        }
+
         if (Skill_3 == true)
         {
             Skill_Move_3();
         }
+        
     }
 
     void FixedUpdate()
@@ -116,13 +133,13 @@ public class Jamma : MonoBehaviour
     //ジャママーの移動が速くなるスキル
     private void Skill_Move_1()
     {
-
+        gameObject.GetComponent<Ball>().BallBoosted = true;
     }
 
     //ボールが2つになるスキル
     private void Skill_Move_2()
     {
-
+        gameObject.GetComponent<Ball>().Multiple = true;
     }
 
     //制限時間が短くなる
