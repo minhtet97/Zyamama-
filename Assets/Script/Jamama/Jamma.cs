@@ -46,9 +46,16 @@ public class Jamma : MonoBehaviour
     public bool Skill_3 = false;//時間を加速するスキル
     float Timer;
 
+    public bool Skill_4 = false;
+    public GameObject JammaClone;
+    public GameObject JammaClone1;
+    public bool Cloneactive;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        JammaClone.SetActive(false);
+        JammaClone1.SetActive(false);
     }
 
     void Update()
@@ -98,6 +105,10 @@ public class Jamma : MonoBehaviour
         {
             Skill_Move_3();
         }
+        if(Skill_4 == true)
+        {
+            Skill_Move_4();
+        }
     }
 
     void FixedUpdate()
@@ -144,6 +155,20 @@ public class Jamma : MonoBehaviour
             Skill = false;
             Skill_3 = false;
         }
+    }
+
+    private void Skill_Move_4()
+    {   if(Cloneactive == true)
+        {
+            JammaClone.SetActive(true);
+            JammaClone1.SetActive(true);
+            StartCoroutine(SetDisable());
+        }
+    }
+    IEnumerator SetDisable()
+    {
+        yield return new WaitForSeconds(10);
+        Cloneactive = false
     }
 
     private void OnCollisionEnter(Collision collision)

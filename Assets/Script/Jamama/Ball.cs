@@ -105,6 +105,8 @@ public class Ball : MonoBehaviour
                         case "TimeFast"://赤
                             Zyamama.GetComponent<Jamma>().Skill_3 = true;
                             break;
+                        case "JammaClone":// Multiple Jamma
+                            Zyamama.GetComponent<Jamma>().Skill_4 = true;
 
                         default:
                             break;
